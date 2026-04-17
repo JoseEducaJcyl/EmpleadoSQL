@@ -1,13 +1,24 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-  //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-  // to see how IntelliJ IDEA suggests fixing it.
-  IO.println(String.format("Hello and welcome!"));
+import java.sql.*;
+import java.util.Scanner;
 
-  for (int i = 1; i <= 5; i++) {
-    //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-    // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-    IO.println("i = " + i);
-  }
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String url = "jdbc:oracle:thin:@//localhost:1521/xe"; // Cambia según tu BD
+        String usuario = "JAVA";
+        String contraseña = "12345";
+        try (Connection conn = DriverManager.getConnection(url, usuario, contraseña);
+             Statement stmt = conn.createStatement()){
+
+            String sql = "SELECT COUNT(*) AS CANTIDAD FROM EMPLEADO WHERE SALARIO > 3000 ";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                int cantidad = rs.getInt("CANTIDAD");
+                System.out.println("Hay un total de " +  cantidad + " con salarios mayor a 3000");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al mostrar la tabla: " + e.getMessage());
+        }
+        sc.close();
+    }
 }
