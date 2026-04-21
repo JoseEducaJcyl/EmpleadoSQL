@@ -32,9 +32,6 @@ public class Main {
         } catch (SQLException e) {
             // Capturar y mostrar cualquier error de base de datos
             System.out.println("Error al mostrar la tabla: " + e.getMessage());
-        }
-
-        // Cerrar el Scanner para liberar recursos
-        sc.close();
+        };
     }
 }
